@@ -25,6 +25,12 @@ public class City {
         this.cityStationList.add(station);
     }
 
+    public void moveCityTrains(){
+        for(Line line: lineList) {
+            line.moveLineTrains();
+        }
+    }
+
     public int getWidth() {
         return width;
     }

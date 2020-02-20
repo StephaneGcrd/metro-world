@@ -1,5 +1,6 @@
 package world;
 
+import java.awt.*;
 import java.util.*;
 
 public class Line {
@@ -8,10 +9,12 @@ public class Line {
     public LinkedList<Station> stationList; // Queue to prioritize expand when building the flood-fill
     public HashMap<Integer, Station> stationMap = new HashMap<>();
     public ArrayList<Train> trainList =  new ArrayList<Train>();
+    public Color lineColor;
 
-    public Line(int id) {
+    public Line(int id, Color color) {
         this.id = id;
         this.stationList = new LinkedList<>();
+        this.lineColor = color;
     }
 
     public void addStation(Station station){
@@ -19,9 +22,9 @@ public class Line {
         stationMap.put(station.id,station);
     }
 
-    public void moveTrains(){
+    public void moveLineTrains(){
         for(Train train: trainList) {
-
+            train.goToNext();
         }
     }
 

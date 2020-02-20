@@ -10,24 +10,27 @@ public class Main {
         System.out.println("Welcome to metro world!");
 
         City paris = new City(50,50,"Paris");
-        Line ligne1 = new Line(1);
-        Line ligne2 = new Line(2);
+        Line ligne1 = new Line(1, Color.YELLOW);
+        Line ligne2 = new Line(2, Color.RED);
 
         Station reuilly = new Station("Reuilly-diderot",1, 10, 40, 25);
         ligne1.addStation(reuilly);
         ligne1.addStation(new Station("Chatelet",2, 10, 25,20));
         ligne1.addStation(new Station("Montparnasse",3, 10, 10,35));
+        ligne1.addStation(new Station("Montparnasse2",12, 10, 5,45));
 
+        ligne2.addStation(new Station("South33", 688, 10, 20, 5 ));
         ligne2.addStation(new Station("Copenhagen", 4, 10, 25, 10 ));
         ligne2.addStation(reuilly);
         ligne2.addStation(new Station("South", 5, 10, 25, 40 ));
+        ligne2.addStation(new Station("South", 66, 10, 40, 40 ));
 
         paris.addLine(ligne1);
         paris.addLine(ligne2);
         Train train = new Train(1,ligne1.stationList);
-        Train train2 = new Train(1,ligne2.stationList);
+        Train train2 = new Train(5,ligne2.stationList);
         ligne1.addTrain(train);
-        ligne1.addTrain(train2);
+        ligne2.addTrain(train2);
 
 
 
@@ -38,10 +41,10 @@ public class Main {
 
         Timer timer = new Timer();
         SimuCanvas canvas = new SimuCanvas(paris);
-        TimerTask task = new Simulation(train, canvas);
+        TimerTask task = new Simulation(paris, canvas);
 
         frame.getContentPane().add(canvas);
-        timer.schedule(task, 2000, 1000);
+        timer.schedule(task, 200, 600);
         frame.setVisible(true);
 
 

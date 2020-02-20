@@ -47,7 +47,6 @@ public class SimuCanvas extends JComponent
 
                 for(Train train: line.trainList){
                     Station station = line.stationMap.get(train.loc_id);
-
                     g.fillRect(station.getPosX()*10, station.getPosY()*10, 10, 10);
                 }
             }
@@ -57,7 +56,7 @@ public class SimuCanvas extends JComponent
 
                 for(Train train: line.trainList){
                     Station station = line.stationMap.get(train.loc_id);
-                    g.setColor(Color.RED);
+                    g.setColor(line.lineColor);
                     g.fillRect(station.getPosX()*10, station.getPosY()*10, 10, 10);
                 }
 

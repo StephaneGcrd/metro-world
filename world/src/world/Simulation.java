@@ -20,6 +20,12 @@ public class Simulation extends TimerTask {
     {
         canvas.repaint();
         city.moveCityTrains();
+        i++;
+
+        if(i==3){
+            Person boris = new Person(city.getStation(2),5);
+            Person boris2 = new Person(city.getStation(2),7);
+        }
 
     }
 }

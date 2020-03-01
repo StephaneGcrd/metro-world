@@ -1,13 +1,14 @@
 package world;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 
 public class City {
     private int width;
     private int height;
     private String name;
-    private ArrayList<Station> cityStationList =  new ArrayList<Station>();;
+    public HashMap<Integer, Station> stationMap = new HashMap<>();
     public ArrayList<Line> lineList =  new ArrayList<Line>();
 
 
@@ -19,10 +20,18 @@ public class City {
 
     public void addLine(Line line){
         this.lineList.add(line);
+
+        for(Station station: line.stationList) {
+            addStation(station);
+        }
+    }
+
+    public Station getStation(int id){
+        return stationMap.get(id);
     }
 
     public void addStation(Station station){
-        this.cityStationList.add(station);
+        this.stationMap.put(station.id,station);
     }
 
     public void moveCityTrains(){

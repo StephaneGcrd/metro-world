@@ -6,31 +6,38 @@ import java.util.TimerTask;
 
 
 public class Main {
+    private static int stationId = 0;
+    private static int lineId = 0;
+
     public static void main(String[] args) {
         System.out.println("Welcome to metro world!");
 
-        City paris = new City(50,50,"Paris");
-        Line ligne1 = new Line(1, Color.YELLOW);
-        Line ligne2 = new Line(2, Color.RED);
+        City paris = new City(100,100,"Paris");
+        Line ligne1 = new Line(lineId++, Color.YELLOW);
+        Line ligne2 = new Line(lineId++, Color.RED);
 
-        Station reuilly = new Station("Reuilly-diderot",1, 10, 40, 25);
-        ligne1.addStation(reuilly);
-        ligne1.addStation(new Station("Chatelet",2, 10, 25,20));
-        ligne1.addStation(new Station("Montparnasse",3, 10, 10,35));
-        ligne1.addStation(new Station("Montparnasse2",12, 10, 5,45));
+        for(int id =0; id<10; id++){
+            ligne1.addStation(new Station(""+id,stationId++, 10, id*10,id*10));
+        }
 
-        ligne2.addStation(new Station("South33", 688, 10, 20, 5 ));
-        ligne2.addStation(new Station("Copenhagen", 4, 10, 25, 10 ));
-        ligne2.addStation(reuilly);
-        ligne2.addStation(new Station("South", 5, 10, 25, 40 ));
-        ligne2.addStation(new Station("South", 66, 10, 40, 40 ));
+
+
+
+
+//        ligne2.addStation(new Station("South33", 688, 10, 20, 5 ));
+//        ligne2.addStation(new Station("Copenhagen", 4, 10, 25, 10 ));
+//        ligne2.addStation(reuilly);
+//        ligne2.addStation(new Station("South", 5, 10, 25, 40 ));
+//        ligne2.addStation(new Station("South", 66, 10, 40, 40 ));
 
         paris.addLine(ligne1);
-        paris.addLine(ligne2);
+
         Train train = new Train(1,ligne1.stationList);
-        Train train2 = new Train(5,ligne2.stationList);
-        ligne1.addTrain(train);
-        ligne2.addTrain(train2);
+        Train train2 = new Train(2,ligne1.stationList);
+        //Train train2 = new Train(5,ligne2.stationList);
+        ligne1.addTrain(train,0);
+        ligne1.addTrain(train2,5);
+        //ligne2.addTrain(train2);
 
 
 
@@ -44,7 +51,7 @@ public class Main {
         TimerTask task = new Simulation(paris, canvas);
 
         frame.getContentPane().add(canvas);
-        timer.schedule(task, 200, 600);
+        timer.schedule(task, 200, 800);
         frame.setVisible(true);
 
 

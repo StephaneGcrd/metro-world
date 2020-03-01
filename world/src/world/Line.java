@@ -28,30 +28,17 @@ public class Line {
         }
     }
 
-    public void addTrain(Train train){
+    public void addTrain(Train train, int offset){
         if(stationMap.containsKey(train.loc_id)) {
             trainList.add(train);
+            for(int i = 0; i<offset; i++){
+                train.goToNext();
+            }
         }else{
             System.out.println("Couldn't add train because station not in line "+id);
         }
 
     }
-
-    /*public void test(){
-        Station testSt =stationList.element();
-        int id = testSt.id;
-
-        Station st2 = stationMap.get(id);
-
-        System.out.println("S1 :" + testSt);
-        System.out.println("S2 :" + st2);
-
-        testSt.id = 6;
-
-        System.out.println("S1 :" + testSt);
-        System.out.println("S2 :" + st2);
-
-    }*/
 
     @Override
     public String toString() {

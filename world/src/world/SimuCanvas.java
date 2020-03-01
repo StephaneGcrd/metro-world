@@ -32,6 +32,11 @@ public class SimuCanvas extends JComponent
 
 
                 for (Station station: line.stationList) {
+                    //g.drawString("St. n°"+station.id,station.getPosX()*10,(station.getPosY()*10)-20);
+
+                    if(station.getNbPersons()>0){
+                        g.drawString(""+station.getNbPersons(),station.getPosX()*10,station.getPosY()*10-3);
+                    }
 
                     g.fillRect(station.getPosX()*10, station.getPosY()*10, 10, 10);
 
@@ -45,10 +50,7 @@ public class SimuCanvas extends JComponent
                 }
 
 
-                for(Train train: line.trainList){
-                    Station station = line.stationMap.get(train.loc_id);
-                    g.fillRect(station.getPosX()*10, station.getPosY()*10, 10, 10);
-                }
+
             }
 
             for (Line line: city.lineList) {
@@ -56,8 +58,19 @@ public class SimuCanvas extends JComponent
 
                 for(Train train: line.trainList){
                     Station station = line.stationMap.get(train.loc_id);
+                    g.setColor(Color.BLUE);
+                    if(train.passengers.size()>0){
+                        g.drawString(" "+train.passengers.size(),station.getPosX()*10,(station.getPosY()*10)+30);
+                    }
+
+
                     g.setColor(line.lineColor);
-                    g.fillRect(station.getPosX()*10, station.getPosY()*10, 10, 10);
+                    if(train.forward){
+
+                        g.fillRect((station.getPosX()*10)+5, station.getPosY()*10, 5, 10);
+                    }else{
+                        g.fillRect((station.getPosX()*10), station.getPosY()*10, 5, 10);
+                    }
                 }
 
             }

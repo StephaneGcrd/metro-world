@@ -23,7 +23,7 @@ public class Simulation extends TimerTask {
         i++;
 
         if(i==3){
-            Person boris2 = new Person(city.getStation(2),5, Parameters.trainDirection.FORWARD);
+            new Person(city.getStation(2),5, Parameters.trainDirection.FORWARD);
 
         }
 

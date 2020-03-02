@@ -1,5 +1,7 @@
 package world;
 
+import world.util.TrainPeopleList;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -9,11 +11,10 @@ import java.util.ListIterator;
 public class Train {
     public int id;
     public int loc_id;
-    public int capacity = 1;
-    public int nb_pp;
     ListIterator iterator;
     public boolean forward = true;
-    public ArrayList<Person> passengers =  new ArrayList<Person>();
+//    public ArrayList<Person> passengers =  new ArrayList<Person>();
+    public TrainPeopleList passengers = new TrainPeopleList(2);
 
     public Train(int id, LinkedList<Station> stationQueue) {
         this.id = id;
@@ -50,32 +51,24 @@ public class Train {
     public void checkForPassengers(Station st){
 
         if(forward){
-            while(!st.personListForward.isEmpty()  && passengers.size() < capacity ){
+            while(!st.personListForward.isEmpty() && passengers.spaceIsAvailable()){
                 Person person = st.personListForward.pop();
                 passengers.add(person);
             }
         }else{
-            while(!st.personListBackward.isEmpty()  && passengers.size() < capacity ){
+            while(!st.personListBackward.isEmpty()  && passengers.spaceIsAvailable()){
                 Person person = st.personListBackward.pop();
                 passengers.add(person);
             }
         }
 
+        ArrayList<Person> psgToDrop =  passengers.getAndRemove(st.id);
 
-
-
-
-
-
-        for(int i = passengers.size() -1; i >=0  ;i--){
-
-            if(passengers.get(i).direction.destinationId == st.id){
-                //st.addPerson(person);
-                System.out.println("Passenger succesfully went from station "+passengers.get(i).id+" to station "+passengers.get(i).direction.destinationId);
-
-                passengers.remove(i);
-                //passengers.remove(person);
-
+        for (Person person: psgToDrop){
+            if(person.direction.destinationDirection == Parameters.trainDirection.FORWARD){
+                    st.personListForward.add(person);
+            }else{
+                st.personListBackward.add(person);
             }
         }
 

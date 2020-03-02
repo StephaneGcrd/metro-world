@@ -5,6 +5,7 @@ public class Person {
     public int id;
     public Direction direction;
 
+
     public class Direction {
         public int destinationId;
         public trainDirection destinationDirection;

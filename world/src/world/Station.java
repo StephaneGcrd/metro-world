@@ -8,7 +8,9 @@ public class Station {
     private int capacity;
     private int posX;
     private int posY;
-    public LinkedList<Person> personList;
+    public LinkedList<Person> personListForward;
+    public LinkedList<Person> personListBackward;
+
 
 
     public Station(String name,int id, int capacity, int x, int y) {
@@ -17,7 +19,8 @@ public class Station {
         this.capacity = capacity;
         this.posX = x;
         this.posY = y;
-        this.personList = new LinkedList<>();
+        this.personListForward = new LinkedList<>();
+        this.personListBackward = new LinkedList<>();
     }
 
     @Override
@@ -26,11 +29,17 @@ public class Station {
     }
 
     public int getNbPersons(){
-        return personList.size();
+        return personListForward.size()+personListBackward.size();
     }
 
     public void addPerson(Person person){
-        personList.add(person);
+        if (person.direction.destinationDirection == Parameters.trainDirection.FORWARD){
+            personListForward.add(person);
+        }
+        else{
+            personListBackward.add(person);
+        }
+
     }
 
     public int getPosX() {

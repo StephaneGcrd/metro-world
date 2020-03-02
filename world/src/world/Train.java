@@ -49,19 +49,29 @@ public class Train {
 
     public void checkForPassengers(Station st){
 
-        while(!st.personList.isEmpty()  && passengers.size() < capacity ){
-            Person person = st.personList.pop();
-            passengers.add(person);
+        if(forward){
+            while(!st.personListForward.isEmpty()  && passengers.size() < capacity ){
+                Person person = st.personListForward.pop();
+                passengers.add(person);
+            }
+        }else{
+            while(!st.personListBackward.isEmpty()  && passengers.size() < capacity ){
+                Person person = st.personListBackward.pop();
+                passengers.add(person);
+            }
         }
+
+
+
 
 
 
 
         for(int i = passengers.size() -1; i >=0  ;i--){
 
-            if(passengers.get(i).destinationId == st.id){
+            if(passengers.get(i).direction.destinationId == st.id){
                 //st.addPerson(person);
-                System.out.println("Passenger succesfully went from station "+passengers.get(i).id+" to station "+passengers.get(i).destinationId);
+                System.out.println("Passenger succesfully went from station "+passengers.get(i).id+" to station "+passengers.get(i).direction.destinationId);
 
                 passengers.remove(i);
                 //passengers.remove(person);

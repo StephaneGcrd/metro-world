@@ -6,7 +6,7 @@ import java.awt.*;
 import java.util.TimerTask;
 
 public class Simulation extends TimerTask {
-    private Train train;
+
     private City city;
     private SimuCanvas canvas;
 
@@ -23,8 +23,8 @@ public class Simulation extends TimerTask {
         i++;
 
         if(i==3){
-            Person boris = new Person(city.getStation(2),5);
-            Person boris2 = new Person(city.getStation(2),7);
+            Person boris2 = new Person(city.getStation(2),5, Parameters.trainDirection.FORWARD);
+
         }
 
     }

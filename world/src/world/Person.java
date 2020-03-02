@@ -1,13 +1,24 @@
 package world;
+import static world.Parameters.*;
 
 public class Person {
     public int id;
-    public int destinationId;
-    public boolean done = false;
+    public Direction direction;
 
-    public Person(Station stationStart, int destinationId) {
+    public class Direction {
+        public int destinationId;
+        public trainDirection destinationDirection;
+
+        public Direction(int destinationId, trainDirection destinationDirection) {
+            this.destinationId = destinationId;
+            this.destinationDirection = destinationDirection;
+        }
+    }
+
+    public Person(Station stationStart, int destinationId, trainDirection destinationDirection) {
         this.id = stationStart.id;
-        this.destinationId = destinationId;
+
+        this.direction = new Direction(destinationId, destinationDirection);
         stationStart.addPerson(this);
     }
 

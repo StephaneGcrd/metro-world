@@ -4,7 +4,6 @@ import java.awt.*;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
 public class Main {
     private static int stationId = 0;
     private static int lineId = 0;
@@ -21,24 +20,12 @@ public class Main {
         }
 
 
-
-
-
-//        ligne2.addStation(new Station("South33", 688, 10, 20, 5 ));
-//        ligne2.addStation(new Station("Copenhagen", 4, 10, 25, 10 ));
-//        ligne2.addStation(reuilly);
-//        ligne2.addStation(new Station("South", 5, 10, 25, 40 ));
-//        ligne2.addStation(new Station("South", 66, 10, 40, 40 ));
-
         paris.addLine(ligne1);
 
         Train train = new Train(1,ligne1.stationList);
         Train train2 = new Train(2,ligne1.stationList);
-        //Train train2 = new Train(5,ligne2.stationList);
         ligne1.addTrain(train,0);
-        ligne1.addTrain(train2,5);
-        //ligne2.addTrain(train2);
-
+        //ligne1.addTrain(train2,5);
 
 
         JFrame frame = new JFrame(paris.getName());
@@ -51,7 +38,7 @@ public class Main {
         TimerTask task = new Simulation(paris, canvas);
 
         frame.getContentPane().add(canvas);
-        timer.schedule(task, 200, 800);
+        timer.schedule(task, 200, 200);
         frame.setVisible(true);
 
 

@@ -11,16 +11,18 @@ import java.util.ListIterator;
 public class Train {
     public int id;
     public int loc_id;
+    public int lineId;
     ListIterator iterator;
     public boolean forward = true;
 //    public ArrayList<Person> passengers =  new ArrayList<Person>();
     public TrainPeopleList passengers = new TrainPeopleList(2);
 
-    public Train(int id, LinkedList<Station> stationQueue) {
+    public Train(int id, LinkedList<Station> stationQueue, int lineId) {
         this.id = id;
         iterator = stationQueue.listIterator();
         Station st = (Station) iterator.next();
         this.loc_id = st.id;
+        this.lineId = lineId;
     }
 
     public void goToNext(){
@@ -51,13 +53,13 @@ public class Train {
     public void checkForPassengers(Station st){
 
         if(forward){
-            while(!st.personListForward.isEmpty() && passengers.spaceIsAvailable()){
-                Person person = st.personListForward.pop();
+            while(passengers.spaceIsAvailable() && !st.stationPeopleList.isForwardEmpty(this.lineId)){
+                Person person = st.stationPeopleList.pop(this.lineId, Parameters.trainDirection.FORWARD);
                 passengers.add(person);
             }
         }else{
-            while(!st.personListBackward.isEmpty()  && passengers.spaceIsAvailable()){
-                Person person = st.personListBackward.pop();
+            while(passengers.spaceIsAvailable() && !st.stationPeopleList.isBackwardEmpty(this.lineId)){
+                Person person = st.stationPeopleList.pop(this.lineId, Parameters.trainDirection.BACKWARD);
                 passengers.add(person);
             }
         }
@@ -65,11 +67,7 @@ public class Train {
         ArrayList<Person> psgToDrop =  passengers.getAndRemove(st.id);
 
         for (Person person: psgToDrop){
-            if(person.direction.destinationDirection == Parameters.trainDirection.FORWARD){
-                    st.personListForward.add(person);
-            }else{
-                st.personListBackward.add(person);
-            }
+            st.stationPeopleList.add(person, this.lineId);
         }
 
 

@@ -1,5 +1,7 @@
 package world;
 
+import world.util.StationPeopleList;
+
 import java.util.LinkedList;
 
 public class Station {
@@ -8,8 +10,9 @@ public class Station {
     private int capacity;
     private int posX;
     private int posY;
-    public LinkedList<Person> personListForward;
-    public LinkedList<Person> personListBackward;
+
+
+    public StationPeopleList stationPeopleList = new StationPeopleList();
 
 
 
@@ -19,8 +22,14 @@ public class Station {
         this.capacity = capacity;
         this.posX = x;
         this.posY = y;
-        this.personListForward = new LinkedList<>();
-        this.personListBackward = new LinkedList<>();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getId() {
+        return id;
     }
 
     @Override
@@ -28,18 +37,12 @@ public class Station {
         return "[" +id +","+ name +"]";
     }
 
-    public int getNbPersons(){
-        return personListForward.size()+personListBackward.size();
+    public int getNbPersons(int lineId){
+        return stationPeopleList.getPlatformSize(lineId);
     }
 
-    public void addPerson(Person person){
-        if (person.direction.destinationDirection == Parameters.trainDirection.FORWARD){
-            personListForward.add(person);
-        }
-        else{
-            personListBackward.add(person);
-        }
-
+    public void add(Person person){
+        stationPeopleList.add(person,person.currentDirection.destinationLine);
     }
 
     public int getPosX() {

@@ -34,8 +34,8 @@ public class SimuCanvas extends JComponent
                 for (Station station: line.stationList) {
                     //g.drawString("St. n°"+station.id,station.getPosX()*10,(station.getPosY()*10)-20);
 
-                    if(station.getNbPersons()>0){
-                        g.drawString(""+station.getNbPersons(),station.getPosX()*10,station.getPosY()*10-3);
+                    if(station.getNbPersons(line.id)>0){
+                        g.drawString(""+station.getNbPersons(line.id),station.getPosX()*10,station.getPosY()*10-3);
                     }
 
                     g.fillRect(station.getPosX()*10, station.getPosY()*10, 10, 10);

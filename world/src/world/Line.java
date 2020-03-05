@@ -5,8 +5,8 @@ import java.util.*;
 
 public class Line {
 
-    private int id;
-    public LinkedList<Station> stationList; // Queue to prioritize expand when building the flood-fill
+    public int id;
+    public LinkedList<Station> stationList;
     public HashMap<Integer, Station> stationMap = new HashMap<>();
     public ArrayList<Train> trainList =  new ArrayList<Train>();
     public Color lineColor;
@@ -20,6 +20,7 @@ public class Line {
     public void addStation(Station station){
         stationList.add(station);
         stationMap.put(station.id,station);
+        station.stationPeopleList.addLine(this.id);
     }
 
     public void moveLineTrains(){

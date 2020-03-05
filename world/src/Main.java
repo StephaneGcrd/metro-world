@@ -1,33 +1,55 @@
 import world.*;
+import world.util.IdGenerator;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Main {
-    private static int stationId = 0;
-    private static int lineId = 0;
+public class Main extends IdGenerator {
+
 
     public static void main(String[] args) {
         System.out.println("Welcome to metro world!");
 
         City paris = new City(100,100,"Paris");
-        Line ligne1 = new Line(lineId++, Color.YELLOW);
-        Line ligne2 = new Line(lineId++, Color.RED);
+        Line ligne1 = new Line(createLineId(), Color.YELLOW);
+        Line ligne2 = new Line(createLineId(), Color.RED);
 
-        for(int id =0; id<10; id++){
-            ligne1.addStation(new Station(""+id,stationId++, 10, id*10,id*10));
-        }
+
+
+        ligne1.addStation(new Station(getCurrentStringStationId(),createStationId(), 10, 50,10));
+        ligne1.addStation(new Station(getCurrentStringStationId(),createStationId(), 10, 50,20));
+        Station stationSwitch =new Station(getCurrentStringStationId(),createStationId(), 10, 50,30);
+        ligne1.addStation(stationSwitch);
+        ligne1.addStation(new Station(getCurrentStringStationId(),createStationId(), 10, 50,40));
+        ligne1.addStation(new Station(getCurrentStringStationId(),createStationId(), 10, 50,50));
+        ligne1.addStation(new Station(getCurrentStringStationId(),createStationId(), 10, 50,60));
+        ligne1.addStation(new Station(getCurrentStringStationId(),createStationId(), 10, 50,70));
+        ligne1.addStation(new Station(getCurrentStringStationId(),createStationId(), 10, 50,80));
+        //ligne1.addStation(new Station(getCurrentStringStationId(),createStationId(), 10, 50,90));
+
+
+        ligne2.addStation(new Station(getCurrentStringStationId(),createStationId(), 10, 10,10));
+        ligne2.addStation(new Station(getCurrentStringStationId(),createStationId(), 10, 20,10));
+        ligne2.addStation(stationSwitch);
+        ligne2.addStation(new Station(getCurrentStringStationId(),createStationId(), 10, 60,40));
+        ligne2.addStation(new Station(getCurrentStringStationId(),createStationId(), 10, 80,40));
+
+
 
 
         paris.addLine(ligne1);
+        //paris.addLine(ligne2);
 
-        Train train = new Train(1,ligne1.stationList);
-        Train train2 = new Train(2,ligne1.stationList);
+        Train train = new Train(1,ligne1.stationList, ligne1.id);
+        //Train train2 = new Train(2,ligne2.stationList, ligne2.id);
+        //Train train2 = new Train(2,ligne1.stationList);
         ligne1.addTrain(train,0);
+        //ligne2.addTrain(train2,0);
         //ligne1.addTrain(train2,5);
 
-
+        System.out.println(paris.stationMap.get(1));
         JFrame frame = new JFrame(paris.getName());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -38,7 +60,7 @@ public class Main {
         TimerTask task = new Simulation(paris, canvas);
 
         frame.getContentPane().add(canvas);
-        timer.schedule(task, 200, 200);
+        timer.schedule(task, 200, 400);
         frame.setVisible(true);
 
 

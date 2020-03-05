@@ -1,26 +1,31 @@
 package world;
+import java.util.LinkedList;
+
 import static world.Parameters.*;
 
 public class Person {
     public int id;
-    public Direction direction;
+    public int startLine;
+    public Direction currentDirection;
+    public LinkedList<Direction> directions;
 
+    public Person(Station stationStart,int startLine, LinkedList directionList) {
+        this.id = stationStart.id;
+        this.startLine = startLine;
+        this.directions = directionList;
+        this.goToNextDir();
 
-    public class Direction {
-        public int destinationId;
-        public trainDirection destinationDirection;
-
-        public Direction(int destinationId, trainDirection destinationDirection) {
-            this.destinationId = destinationId;
-            this.destinationDirection = destinationDirection;
-        }
     }
 
-    public Person(Station stationStart, int destinationId, trainDirection destinationDirection) {
-        this.id = stationStart.id;
+    public void addDirection(Direction dir){
+        directions.add(dir);
+    }
 
-        this.direction = new Direction(destinationId, destinationDirection);
-        stationStart.addPerson(this);
+    public void goToNextDir(){
+        if(!directions.isEmpty()){
+            this.currentDirection = directions.pop();
+        }
+
     }
 
 }

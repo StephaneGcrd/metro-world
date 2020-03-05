@@ -19,13 +19,14 @@ public class TrainPeopleList {
 
     public void add(Person person){
         if(nbPeople< maxSize){
-            if(this.personMap.containsKey(person.direction.destinationId)){
-                ArrayList<Person> list = this.personMap.get(person.direction.destinationId);
+            if(this.personMap.containsKey(person.currentDirection.destinationId)){
+                ArrayList<Person> list = this.personMap.get(person.currentDirection.destinationId);
                 list.add(person);
             }else{
                 ArrayList<Person> PersonList = new ArrayList<>();
                 PersonList.add(person);
-                this.personMap.put(person.direction.destinationId, PersonList);
+
+                this.personMap.put(person.currentDirection.destinationId, PersonList);
             }
         }
         nbPeople++;
@@ -36,7 +37,9 @@ public class TrainPeopleList {
         if(this.personMap.containsKey(stId)){
             ArrayList<Person> list = this.personMap.get(stId);
             for(Person personElement: list){
+
                 pplToReturn.add(personElement);
+                personElement.goToNextDir();
                 nbPeople--;
             }
 

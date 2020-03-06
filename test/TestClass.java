@@ -23,6 +23,11 @@ public class TestClass extends IdGenerator{
     }
 
     @Test
+    public void testToTest(){
+        Assert.assertEquals(1,1);
+    }
+
+    @Test
     public void createCityAndCheckName() {
         Assert.assertEquals("Paris", city.getName());
     }

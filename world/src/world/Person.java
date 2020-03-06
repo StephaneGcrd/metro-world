@@ -9,8 +9,8 @@ public class Person {
     public Direction currentDirection;
     public LinkedList<Direction> directions;
 
-    public Person(Station stationStart,int startLine, LinkedList directionList) {
-        this.id = stationStart.id;
+    public Person(int stationStartId,int startLine, LinkedList directionList) {
+        this.id = stationStartId;
         this.startLine = startLine;
         this.directions = directionList;
         this.goToNextDir();
@@ -18,7 +18,13 @@ public class Person {
     }
 
     public void addDirection(Direction dir){
-        directions.add(dir);
+        // If there is no currentDirection set, then add it to it in priority before the queue.
+        if(currentDirection == null){
+            currentDirection = dir;
+        }else{
+            directions.add(dir);
+        }
+
     }
 
     public void goToNextDir(){

@@ -27,8 +27,7 @@ public class Simulation extends TimerTask {
             LinkedList<Direction> directions =  new LinkedList<Direction>();
             directions.add(new Direction(6,1,Parameters.trainDirection.FORWARD));
             directions.add(new Direction(2,1,Parameters.trainDirection.BACKWARD));
-
-            city.getStation(2).add(new Person(city.getStation(2),1, directions));
+            city.getStation(2).add(new Person(city.getStation(2).id,1, directions));
 
         }
 

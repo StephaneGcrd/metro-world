@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import world.City;
 import world.Line;
 import world.Station;
+import world.Train;
 import world.util.IdGenerator;
 
 import java.awt.*;
@@ -53,9 +54,16 @@ public class TestClass extends IdGenerator{
         Assert.assertEquals(city.getStation(1).getName(),"nom");
     }
 
-
-
-
+    @Test
+    public void AddTrainToLine(){
+        Line ligne1 = new Line(createLineId(), Color.YELLOW);
+        ligne1.addStation(new Station("nom",createStationId(), 10, 50,10));
+        city.addLine(ligne1);
+        Assert.assertEquals(city.getStation(1).id,1);
+        Train train = new Train(1,ligne1.stationList, ligne1.id);
+        ligne1.addTrain(train,0);
+        Assert.assertEquals(ligne1.trainList.get(0).loc_id, 1);
+    }
 
 
 }
